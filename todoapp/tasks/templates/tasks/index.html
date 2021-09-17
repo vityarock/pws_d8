@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Информация по категориям{% endblock %}
+
+{% block main_content %}
+<div class="d-flex flex-row">
+  <div class="p-2">
+	  <h1>Задачи по категориям</h1>
+	  <ul>
+	  {% for cat, count in counts.items %}
+	    <li><span class="badge badge-info">{{ cat }}: {{ count }}</span></li>
+	  {% empty %}
+	    <li>Список задач по категориям пуст. Попробуйте добавить их из админки</li>
+	  {% endfor %}
+	  </ul>
+  </div>
+  <div class="p-2">
+	  <h1>Задачи по приоритетам</h1>
+	  <ul>
+	  {% for key, value in priority.items %}
+	    <li><span class="badge badge-info">{{ key }}: {{ value }}</span></li>
+	  {% empty %}
+	    <li>Список задач по приоритетам пуст. Попробуйте добавить их из админки</li>
+	  {% endfor %}
+	  </ul>
+  </div>
+</div>
+{% load cache %}
+{% cache 120 p %}
+<p class="fixed-bottom">
+    Cached_time - {{ send_time }} (Moscow)
+</p>
+{% endcache %}
+{% endblock %}
+
